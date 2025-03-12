@@ -1,17 +1,29 @@
 import {HeroUIProvider} from "@heroui/react";
-import {BrowserRouter} from "react-router";
+import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
+import Landing from "./pages/landing";
 
 function App() {
 
+    const RootLayout = () => {
+        return (
+            <HeroUIProvider>
+                <Outlet/>
+            </HeroUIProvider>
+        )
+    }
+
+  const routes = createBrowserRouter([
+      {
+          element: <RootLayout/>,
+          children: [
+              { path: "/", element: <Landing/> }
+          ]
+      }
+  ])
+
   return (
     <>
-        <BrowserRouter>
-            <HeroUIProvider>
-                <div>
-                    <p className={"text-6xl justify-end text-red-500"}>Hello Vite + React!</p>
-                </div>
-            </HeroUIProvider>
-        </BrowserRouter>
+        <RouterProvider router={routes}/>
     </>
   )
 }
